@@ -210,6 +210,10 @@ class ModelManager(metaclass=Singleton):
                     "model_name": "gpt-4o-search-preview",
                     "model_id": "gpt-4o-search-preview",
                 },
+                {
+                    "model_name": "gpt-oss:20b",
+                    "model_id": "openai/gpt-oss:20b",
+                },
             ]
             
             for model in models:

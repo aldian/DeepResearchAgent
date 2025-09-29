@@ -16,7 +16,7 @@ web_searcher_tool_config = dict(
 
 deep_researcher_tool_config  = dict(
     type="deep_researcher_tool",
-    model_id = "gpt-4.1",
+    model_id = "gpt-oss:20b",
     max_depth = 2,
     max_insights = 20,
     time_limit_seconds = 60,
@@ -25,13 +25,13 @@ deep_researcher_tool_config  = dict(
 
 auto_browser_use_tool_config  = dict(
     type="auto_browser_use_tool",
-    model_id="gpt-4.1"
+    model_id="gpt-oss:20b"
 )
 
 deep_analyzer_tool_config  = dict(
     type="deep_analyzer_tool",
-    analyzer_model_ids = ["gemini-2.5-pro"],
-    summarizer_model_id = "gemini-2.5-pro",
+    analyzer_model_ids = ["gpt-oss:20b"],
+    summarizer_model_id = "gpt-oss:20b",
 )
 
 mcp_tools_config = {

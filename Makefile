@@ -7,6 +7,16 @@ PYTHON_VERSION = 3.11
 # Default goal
 .DEFAULT_GOAL := help
 
+# 🛠️ Create Conda environment
+.PHONY: create
+create:
+	conda create -y -n $(ENV_NAME) python=$(PYTHON_VERSION)
+
+# 🛠️ Show activation command for Conda environment
+.PHONY: activate
+activate:
+	@echo "Run: conda activate $(ENV_NAME)"
+
 # 🛠️ Remove Conda environment
 .PHONY: clean
 clean:
@@ -16,35 +26,29 @@ clean:
 .PHONY: install
 install:
 	@echo "Installing dependencies"
-	pip install poetry
-	pip install 'markitdown[all]'
-	pip install "browser-use[memory]"==0.1.48
+	conda run -n $(ENV_NAME) pip install poetry
+	conda run -n $(ENV_NAME) pip install 'markitdown[all]'
+	conda run -n $(ENV_NAME) pip install "browser-use[memory]"==0.1.48
 
 	@echo install playwright
-	pip install playwright
-	playwright install chromium --with-deps --no-shell
+	conda run -n $(ENV_NAME) pip install playwright
+	conda run -n $(ENV_NAME) playwright install chromium --with-deps --no-shell
 
 	@echo install dependencies
-	poetry install
-
-	@echo install xlrd
-	pip install xlrd==2.0.1
+	conda run -n $(ENV_NAME) poetry install
 
 install-requirements:
 	@echo "Installing dependencies"
-	pip install poetry
-	pip install 'markitdown[all]'
-	pip install "browser-use[memory]"==0.1.48
+	conda run -n $(ENV_NAME) pip install poetry
+	conda run -n $(ENV_NAME) pip install 'markitdown[all]'
+	conda run -n $(ENV_NAME) pip install "browser-use[memory]"==0.1.48
 
 	@echo install playwright
-	pip install playwright
-	playwright install chromium --with-deps --no-shell
+	conda run -n $(ENV_NAME) pip install playwright
+	conda run -n $(ENV_NAME) playwright install chromium --with-deps --no-shell
 
 	@echo install dependencies
-	pip install -r requirements.txt
-
-	@echo install xlrd
-	pip install xlrd==2.0.1
+	conda run -n $(ENV_NAME) pip install -r requirements.txt
 
 # 🛠️ Update dependencies using Poetry
 .PHONY: update

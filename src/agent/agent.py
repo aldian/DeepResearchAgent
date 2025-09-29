@@ -97,10 +97,18 @@ async def build_agent(config,
 
 
 async def create_agent(config):
-
-    # Load MCP tools
-    mcpadapt = MCPAdapt(config.mcp_tools_config, AsyncToolAdapter())
-    mcpadapt_tools = await mcpadapt.tools()
+    # Load MCP tools (only if servers are configured)
+    mcpadapt_tools = {}
+    try:
+        mcp_conf = getattr(config, "mcp_tools_config", None)
+        has_servers = isinstance(mcp_conf, dict) and bool(mcp_conf.get("mcpServers"))
+        if has_servers:
+            mcpadapt = MCPAdapt(mcp_conf, AsyncToolAdapter())
+            mcpadapt_tools = await mcpadapt.tools()
+        else:
+            logger.info("| No MCP servers configured. Skipping MCP tool initialization.")
+    except Exception as e:
+        logger.warning(f"| MCP initialization skipped due to error: {e}")
     
     if config.use_hierarchical_agent:
 
@@ -142,10 +150,11 @@ async def create_agent(config):
         agent_config = config.agent_config
 
         # Build agent
-        agent = await build_agent(config,
+        agent = await build_agent(
+            config,
             agent_config,
             default_tools=TOOL,
-            default_mcp_tools=mcpadapt_tools
+            default_mcp_tools=mcpadapt_tools,
         )
 
         return agent

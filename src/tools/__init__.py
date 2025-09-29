@@ -7,6 +7,7 @@ from src.tools.planning import PlanningTool
 from src.tools.image_generator import ImageGeneratorTool
 from src.tools.video_generator import VideoGeneratorTool
 from src.tools.file_reader import FileReaderTool
+from src.tools.file_writer import FileWriterTool
 from src.tools.oai_deep_research import OAIDeepResearchTool
 
 
@@ -23,5 +24,6 @@ __all__ = [
     "VideoGeneratorTool",
     "make_tool_instance",
     "FileReaderTool",
+    "FileWriterTool",
     "OAIDeepResearchTool"
 ]
